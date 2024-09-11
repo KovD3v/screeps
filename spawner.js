@@ -1,10 +1,25 @@
 var spawner = {
 	/** @param {string} role **/
 	spawn: function (role) {
+        switch (role) {
+			case "harvester":
+				parts = [WORK, CARRY, MOVE];
+				break;
+			case "upgrater":
+				parts = [WORK, CARRY, MOVE];
+				break;
+			case "builder":
+				parts = [WORK, CARRY, MOVE];
+				break;
+			default:
+				console.log("Invalid role");
+				return;
+		}
+
 		var newName = role + Game.time;
-		console.log("Spawning new " + role + ": " + newName);
-		Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
-			memory: { role: role },
+        console.log("Spawning new " + role + ": " + newName);
+		Game.spawns["Spawn1"].spawnCreep(parts, newName, {
+            memory: { role: role },
 		});
 	},
 	autospawn: function () {
