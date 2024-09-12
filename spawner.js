@@ -5,7 +5,7 @@ var spawner = {
 			case "harvester":
 				parts = [WORK, CARRY, MOVE];
 				break;
-			case "upgrater":
+			case "upgrader":
 				parts = [WORK, CARRY, MOVE];
 				break;
 			case "builder":
@@ -15,44 +15,39 @@ var spawner = {
 				console.log("Invalid role");
 				return;
 		}
-
 		var newName = role + Game.time;
         console.log("Spawning new " + role + ": " + newName);
 		Game.spawns["Spawn1"].spawnCreep(parts, newName, {
             memory: { role: role },
 		});
 	},
-	autospawn: function () {
-		var _ = 0;
-		var harvester = 0;
-		var upgrader = 0;
-		var builder = 0;
+	spawner: function () {
+		var harvester = [];
+		var upgrader = [];
+		var builder = [];
 		for (var name in Game.creeps) {
 			var creep = Game.creeps[name];
 			var role = creep.memory.role;
 			switch (role) {
 				case "harvester":
-					harvester += 1;
+					harvester.push(creep)
 					break;
-				case "upgrater":
-					upgrater += 1;
+				case "upgrader":
+					upgrader.push(creep)
 					break;
 				case "builder":
-					builder += 1;
-					break;
-				default:
-					_ += 1;
+					builder.push(creep)
 					break;
 			}
 		}
-		if (harvester < 2) {
-			spawner.spawn("harvester");
+		if (harvester.length < 2) {
+			this.spawn("harvester");
 		}
-		if (upgrader < 2) {
-			spawner.spawn("upgrader");
+		else if (upgrader.length < 2) {
+			this.spawn("upgrader");
 		}
-		// if (builder <= 2)
-		//     {spawner.spawn('builder')}
+		else if (builder.length <= 2)
+		    {this.spawn('builder')}
 	},
 };
 
