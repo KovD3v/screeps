@@ -11,16 +11,8 @@ module.exports.loop = function () {
 		}
 	}
 
-	// generatePixels(false, true);
-	// autospawn(2, "harvester", "Spawn1");
-	// autospawn(2, "upgrader", "Spawn1");
-	// autospawn(2, "builder", "Spawn1");
 
-	// for (let rooms in Game.rooms) {
-	//     let room = Game.rooms[rooms];
-	//     tower.run(room);
-	// }
-	spawner.autospawn();
+	spawner.spawner();
 	for (var name in Game.creeps) {
 		var creep = Game.creeps[name];
 		if (creep.memory.role == "harvester") {
@@ -32,26 +24,6 @@ module.exports.loop = function () {
 		if (creep.memory.role == "builder") {
 			roleBuilder.run(creep);
 		}
-		// if(creep.memory.role == 'rangedAttacker') {
-		//     roleRangedAttacker.run(creep);
-		// }
-		// if(creep.memory.role == 'healer') {
-		//     roleHealer.run(creep);
-		// }
-		// if(creep.memory.role == 'reloader') {
-		//     roleReloader.run(creep);
-		// }
-		// if(creep.memory.role == 'claimer') {
-		//     roleClaimer.run(creep);
-		// }
-		// if(creep.memory.role == 'reserver') {
-		//     roleReserver.run(creep);
-		// }
-		// if(creep.memory.role == 'signer') {
-		//     roleSigner.run(creep);
-		// }
-		// if(creep.memory.role == 'suppliesSender') {
-		//     roleSuppliesSender.run(creep);
-		// }
+
 	}
 };
