@@ -7,26 +7,25 @@ var manager = require("creeps.manager");
 const creeps = manager.creeps;
 
 module.exports.loop = function () {
-	Object.keys(Memory.creeps).forEach((name) => {
+	Object.keys(Game.creeps).forEach((name) => {
 		var creep = Game.creeps[name];
 		var creepMemory = Memory.creeps[name];
 		var role = creepMemory.role;
-		
+
 		if (!Game.creeps[name]) {
 			delete Memory.creeps[name];
-			delete creeps[role].entity[creeps[role].entity.indexOf(creep)];
 			console.log("Clearing non-existing creep memory:", name);
 		}
 
-		
 		if (role in creeps) {
-			creeps[role].entity += creep;
+			creeps[role].counter += 1;
 			creeps[role].func(creep);
 		}
-
-		if (creeps[role].entity.length < creeps[role].amount) {
-			spawner.spawn(role);
-		}
-
 	});
+	for (e in creeps) {
+		var creep = creeps[e];
+		if (creep.counter < creep.amount) {
+			spawner.spawn(e);
+		}
+	}
 };

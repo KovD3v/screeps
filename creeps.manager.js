@@ -5,20 +5,20 @@ const roleUpgrader = require("./role.upgrader");
 module.exports.creeps = {
 	harvester: {
 		parts: [WORK, CARRY, MOVE],
-		amount: 2,
-		entity: [],
-        func: roleHarvester.run,
+		amount: 4,
+		counter: 0,
+		func: roleHarvester.run,
 	},
 	upgrader: {
 		parts: [WORK, CARRY, MOVE],
-		amount: 2,
+		amount: 4,
 		counter: 0,
-        func: roleUpgrader.run,
+		func: roleUpgrader.run,
 	},
 	builder: {
 		parts: [WORK, CARRY, MOVE],
-		amount: 2,
+		amount: 1,
 		counter: 0,
-        func: roleBuilder.run,
+		func: roleBuilder.run,
 	},
 };
