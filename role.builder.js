@@ -1,16 +1,18 @@
 var roleBuilder = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
-		if (creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
-			creep.memory.building = false;
+		var isBuilding = creep.memory.building;
+
+		if (isBuilding && creep.store[RESOURCE_ENERGY] == 0) {
+			isBuilding = false;
 			creep.say("🔄 harvest");
 		}
-		if (!creep.memory.building && creep.store.getFreeCapacity() == 0) {
-			creep.memory.building = true;
+		if (!isBuilding && creep.store.getFreeCapacity() == 0) {
+			isBuilding = true;
 			creep.say("🚧 build");
 		}
 
-		if (creep.memory.building) {
+		if (isBuilding) {
 			var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
 			if (targets.length) {
 				if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
@@ -18,6 +20,10 @@ var roleBuilder = {
 						visualizePathStyle: { stroke: "#ffffff" },
 					});
 				}
+			} else {
+				creep.moveTo(Game.flags["Builders"].pos, {
+					visualizePathStyle: { stroke: "#ffffff" },
+				});
 			}
 		} else {
 			var sources = creep.room.find(FIND_SOURCES);
