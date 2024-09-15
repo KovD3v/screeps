@@ -1,7 +1,7 @@
 var spawner = require("spawner");
-var  roles = require("roles");
+var manager = require("roles");
 
-const  roles =  roles;
+const roles = manager.roles;
 
 module.exports.loop = function () {
 	Object.keys(Game.creeps).forEach((name) => {
@@ -13,17 +13,16 @@ module.exports.loop = function () {
 			console.log("Clearing non-existing creep memory:", name);
 		}
 
-		if (role in  roles) {
-			 roles[role].func(creep);
+		if (role in roles) {
+			roles[role].func(creep);
 		} else {
 			console.log("Role not found:", role);
 		}
-
 	});
-	for (e in  roles) {
-		var role =  roles[e];
+	Object.keys(roles).forEach((role) => {
+		role = roles[role];
 		if (role.counter() < role.amount) {
-			spawner.spawn(e);
+			spawner.spawn(role);
 		}
-	}
+	});
 };
