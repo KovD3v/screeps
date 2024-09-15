@@ -1,4 +1,4 @@
-var manager = require("creeps.manager");
+var roles = require("roles");
 
 var spawner = {
 	/** @param {string} role **/
@@ -9,7 +9,7 @@ var spawner = {
 			var newName = role + Game.time;
 			console.log("Spawning new " + role + ": " + newName);
 			Game.spawns["Spawn1"].spawnCreep(
-				manager.creeps[role].parts,
+				roles.creeps[role].parts,
 				newName,
 				{
 					memory: { role: role },
