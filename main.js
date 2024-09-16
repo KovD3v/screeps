@@ -21,10 +21,5 @@ module.exports.loop = function () {
 			console.log("Role not found:", role);
 		}
 	});
-	Object.keys(roles).forEach((name) => {
-		role = roles[name];
-		if (role.counter() < role.amount) {
-			spawner.spawn(name);
-		}
-	});
+	spawner.spawnByPriority();
 };

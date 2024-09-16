@@ -17,6 +17,19 @@ var spawner = {
 			);
 		}
 	},
+	spawnByPriority: function () {
+		const roles = Object.keys(manager.roles);
+		roles.sort(
+			(a, b) => manager.roles[a].priority - manager.roles[b].priority
+		);
+
+		for (const role of roles) {
+			if (manager.roles[role].counter() < manager.roles[role].amount) {
+				this.spawn(role);
+				break;
+			}
+		}
+	},
 };
 
 module.exports = spawner;

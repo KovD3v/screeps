@@ -12,6 +12,7 @@ module.exports.roles = {
 			_.filter(Game.creeps, (creep) => creep.memory.role == "harvester")
 				.length,
 		func: roleHarvester.run,
+		priority: 1,
 	},
 	upgrader: {
 		parts: [WORK, CARRY, MOVE],
@@ -22,6 +23,7 @@ module.exports.roles = {
 			_.filter(Game.creeps, (creep) => creep.memory.role == "upgrader")
 				.length,
 		func: roleUpgrader.run,
+		priority: 1,
 	},
 	builder: {
 		parts: [WORK, CARRY, MOVE],
@@ -32,5 +34,6 @@ module.exports.roles = {
 			_.filter(Game.creeps, (creep) => creep.memory.role == "builder")
 				.length,
 		func: roleBuilder.run,
+		priority: 2,
 	},
 };
