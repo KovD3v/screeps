@@ -20,7 +20,7 @@ var spawner = {
 	spawnByPriority: function () {
 		const roles = Object.keys(manager.roles);
 		roles.sort(
-			(a, b) => manager.roles[a].priority - manager.roles[b].priority
+			(a, b) => manager.roles[b].priority - manager.roles[a].priority
 		);
 
 		for (const role of roles) {
