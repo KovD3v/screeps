@@ -1,17 +1,16 @@
 var roleUpgrader = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
-		var isReady = creep.memory.upgrading;
-		if (isReady && creep.store[RESOURCE_ENERGY] == 0) {
-			isReady = false;
+		if (creep.memory.upgrading && creep.store[RESOURCE_ENERGY] == 0) {
+			creep.memory.upgrading = false;
 			creep.say("🔄 harvest");
 		}
-		if (!isReady && creep.store.getFreeCapacity() == 0) {
-			isReady = true;
+		if (!creep.memory.upgrading && creep.store.getFreeCapacity() == 0) {
+			creep.memory.upgrading = true;
 			creep.say("⚡ upgrade");
 		}
 
-		if (isReady) {
+		if (creep.memory.upgrading) {
 			if (
 				creep.upgradeController(creep.room.controller) ==
 				ERR_NOT_IN_RANGE
