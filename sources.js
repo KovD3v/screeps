@@ -13,12 +13,15 @@ var manager = {
 	assign: function (creep) {
 		var sources = Object.values(Memory.sources);
 		sources.sort((a, b) => {
-			a.creeps.length - b.creeps.length;
+			return a.creeps.length - b.creeps.length;
 		});
 		var source = sources[0];
-		console.log(source.id);
-		Memory.sources[source.id].creeps.push(creep.name);
-		creep.memory.sourceId = source.id;
+		if (!Memory.sources[source.id].creeps.includes(creep.name)) {
+			Memory.sources[source.id].creeps.push(creep.name);
+			creep.memory.sourceId = source.id;
+		}
 		return source;
 	},
 };
+
+module.exports = manager;

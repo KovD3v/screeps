@@ -1,10 +1,14 @@
+var sourceManger = require("sources");
+
 var roleHarvester = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
 		if (creep.store.getFreeCapacity() > 0) {
-			var sources = creep.room.find(FIND_SOURCES);
-			if (creep.harvest(sources[1]) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(sources[1]);
+			var s = sourceManger.manager.assign(creep);
+			console.log(s);
+			var source = creep.memory.sourceId;
+			if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+				creep.moveTo(source);
 			}
 		} else {
 			var targets = creep.room.find(FIND_STRUCTURES, {

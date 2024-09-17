@@ -11,6 +11,11 @@ module.exports.loop = function () {
 		}
 	});
 
+	var sources = Object.values(Memory.sources);
+	for (let source of sources) {
+		source.creeps = source.creeps.filter((creep) => Game.creeps[creep]);
+	}
+
 	Object.keys(Game.creeps).forEach((name) => {
 		var creep = Game.creeps[name];
 		var role = creep.memory.role;
