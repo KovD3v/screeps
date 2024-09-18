@@ -1,3 +1,5 @@
+var roleHarvester = require("role.harvester");
+
 var roleBuilder = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
@@ -17,7 +19,8 @@ var roleBuilder = {
 					creep.moveTo(targets[0]);
 				}
 			} else {
-				creep.moveTo(Game.flags["Builders"].pos);
+				roleHarvester.run(creep);
+				// creep.moveTo(Game.flags["Builders"].pos);
 			}
 		} else {
 			var sources = creep.room.find(FIND_SOURCES);

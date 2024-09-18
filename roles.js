@@ -2,38 +2,37 @@ const roleBuilder = require("./role.builder");
 const roleHarvester = require("./role.harvester");
 const roleUpgrader = require("./role.upgrader");
 
+const createRole = (roleName, parts, amount, func, priority) => ({
+	parts,
+	amount,
+	entity: () =>
+		_.filter(Game.creeps, (creep) => creep.memory.role === roleName),
+	counter: () =>
+		_.filter(Game.creeps, (creep) => creep.memory.role === roleName).length,
+	func,
+	priority,
+});
+
 module.exports.roles = {
-	harvester: {
-		parts: [WORK, WORK, CARRY, MOVE, MOVE],
-		amount: 6,
-		entity: () =>
-			_.filter(Game.creeps, (creep) => creep.memory.role == "harvester"),
-		counter: () =>
-			_.filter(Game.creeps, (creep) => creep.memory.role == "harvester")
-				.length,
-		func: roleHarvester.run,
-		priority: 1,
-	},
-	upgrader: {
-		parts: [WORK, CARRY, MOVE],
-		amount: 6,
-		entity: () =>
-			_.filter(Game.creeps, (creep) => creep.memory.role == "upgrader"),
-		counter: () =>
-			_.filter(Game.creeps, (creep) => creep.memory.role == "upgrader")
-				.length,
-		func: roleUpgrader.run,
-		priority: 1,
-	},
-	builder: {
-		parts: [WORK, WORK, CARRY, CARRY, MOVE],
-		amount: 4,
-		entity: () =>
-			_.filter(Game.creeps, (creep) => creep.memory.role == "builder"),
-		counter: () =>
-			_.filter(Game.creeps, (creep) => creep.memory.role == "builder")
-				.length,
-		func: roleBuilder.run,
-		priority: 2,
-	},
+	harvester: createRole(
+		"harvester",
+		[WORK, WORK, CARRY, MOVE, MOVE],
+		6,
+		roleHarvester.run,
+		1
+	),
+	upgrader: createRole(
+		"upgrader",
+		[WORK, CARRY, MOVE],
+		6,
+		roleUpgrader.run,
+		1
+	),
+	builder: createRole(
+		"builder",
+		[WORK, WORK, CARRY, CARRY, MOVE],
+		4,
+		roleBuilder.run,
+		2
+	),
 };
