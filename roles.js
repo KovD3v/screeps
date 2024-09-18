@@ -4,7 +4,7 @@ const roleUpgrader = require("./role.upgrader");
 
 module.exports.roles = {
 	harvester: {
-		parts: [WORK, CARRY, MOVE],
+		parts: [WORK, WORK, CARRY, MOVE, MOVE],
 		amount: 6,
 		entity: () =>
 			_.filter(Game.creeps, (creep) => creep.memory.role == "harvester"),
@@ -15,7 +15,7 @@ module.exports.roles = {
 		priority: 1,
 	},
 	upgrader: {
-		parts: [WORK, WORK, CARRY, CARRY, MOVE],
+		parts: [WORK, CARRY, MOVE],
 		amount: 6,
 		entity: () =>
 			_.filter(Game.creeps, (creep) => creep.memory.role == "upgrader"),
