@@ -4,26 +4,26 @@ var manager = require("roles");
 const roles = manager.roles;
 
 module.exports.loop = function () {
-	Object.keys(Memory.creeps).forEach((name) => {
+    for (const name in Memory.creeps) {
 		if (!Game.creeps[name]) {
 			delete Memory.creeps[name];
 			console.log("Clearing non-existing creep memory:", name);
 		}
-	});
+	}
 
-	Object.values(Memory.sources).forEach((source) => {
-		source.creeps = source.creeps.filter((creep) => Game.creeps[creep]);
-	});
+	for (const source of Object.values(Memory.sources)) {
+		source.creeps = source.creeps.filter((name) => Game.creeps[name]);
+	}
 
-	Object.keys(Game.creeps).forEach((name) => {
-		var creep = Game.creeps[name];
-		var role = creep.memory.role;
+	for (const creep of Object.values(Game.creeps)) {
+		const role = creep.memory.role;
 
-		if (role in roles) {
+		if (roles[role]) {
 			roles[role].func(creep);
 		} else {
 			console.log("Role not found:", role);
 		}
-	});
+	}
+	
 	spawner.spawnByPriority();
 };
