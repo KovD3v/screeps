@@ -16,7 +16,7 @@ const createRole = (roleName, parts, amount, func, priority) => ({
 module.exports.roles = {
 	harvester: createRole(
 		"harvester",
-		[WORK, WORK, CARRY, MOVE, MOVE],
+		[WORK, CARRY, MOVE],
 		6,
 		roleHarvester.run,
 		1
@@ -28,11 +28,5 @@ module.exports.roles = {
 		roleUpgrader.run,
 		1
 	),
-	builder: createRole(
-		"builder",
-		[WORK, WORK, CARRY, CARRY, MOVE],
-		4,
-		roleBuilder.run,
-		2
-	),
+	builder: createRole("builder", [WORK, CARRY, MOVE], 4, roleBuilder.run, 2),
 };

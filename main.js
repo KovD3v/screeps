@@ -4,7 +4,7 @@ var manager = require("roles");
 const roles = manager.roles;
 
 module.exports.loop = function () {
-    for (const name in Memory.creeps) {
+	for (const name in Memory.creeps) {
 		if (!Game.creeps[name]) {
 			delete Memory.creeps[name];
 			console.log("Clearing non-existing creep memory:", name);
@@ -24,6 +24,6 @@ module.exports.loop = function () {
 			console.log("Role not found:", role);
 		}
 	}
-	
+
 	spawner.spawnByPriority();
 };
