@@ -1,4 +1,4 @@
-var roleHarvester = require("role.harvester");
+const utils = require("./utils");
 
 var roleBuilder = {
 	/** @param {Creep} creep **/
@@ -9,24 +9,22 @@ var roleBuilder = {
 		}
 		if (!creep.memory.building && creep.store.getFreeCapacity() == 0) {
 			creep.memory.building = true;
-			creep.say("🚧 ready");
+			creep.say("🚧 build");
 		}
 
 		if (creep.memory.building) {
 			var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-			if (targets.length) {
+			if (targets.length > 0) {
 				if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(targets[0]);
+					creep.moveTo(targets[0], {
+						visualizePathStyle: { stroke: "#ffffff" },
+					});
 				}
 			} else {
-				roleHarvester.run(creep);
-				// creep.moveTo(Game.flags["Builders"].pos);
+				require("./role.upgrader").run(creep);
 			}
 		} else {
-			var sources = creep.room.find(FIND_SOURCES);
-			if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(sources[0]);
-			}
+			utils.harvestEnergy(creep);
 		}
 	},
 };

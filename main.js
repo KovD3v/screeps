@@ -1,29 +1,21 @@
-var spawner = require("spawner");
-var manager = require("roles");
-
-const roles = manager.roles;
+var spawner = require("./spawner");
+var roles = require("./roles");
+const utils = require("./utils");
 
 module.exports.loop = function () {
-	for (const name in Memory.creeps) {
-		if (!Game.creeps[name]) {
-			delete Memory.creeps[name];
-			console.log("Clearing non-existing creep memory:", name);
-		}
-	}
-
-	for (const source of Object.values(Memory.sources)) {
-		source.creeps = source.creeps.filter((name) => Game.creeps[name]);
-	}
-
 	for (const creep of Object.values(Game.creeps)) {
-		const role = creep.memory.role;
+		if (creep.ticksToLive === 1) {
+			utils.handleCreepDeath(creep)
+			continue;
+		}
 
-		if (roles[role]) {
-			roles[role].func(creep);
+		const role = roles.find((r) => r.name === creep.memory.role.name);
+		if (role) {
+			role.func(creep);
 		} else {
-			console.log("Role not found:", role);
+			console.log(`Role ${role} not found.`);
 		}
 	}
 
-	spawner.spawnByPriority();
+	spawner.autospawn();
 };
